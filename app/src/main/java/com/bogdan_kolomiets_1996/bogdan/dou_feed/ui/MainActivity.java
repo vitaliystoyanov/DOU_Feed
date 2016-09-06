@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     setSupportActionBar(mToolbar);
     System.out.println("Application " + getApplication());
     System.out.println("Activity " + this);
-    mLauncher = FragmentLauncher.with(this).into(R.id.container);
+    mLauncher = new FragmentLauncher(this, R.id.container);
     mLauncher.open();
   }
 
@@ -43,5 +43,11 @@ public class MainActivity extends AppCompatActivity {
   public boolean onSupportNavigateUp() {
     getSupportFragmentManager().popBackStack();
     return true;
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    mLauncher.release();
   }
 }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -67,6 +66,13 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.feed_layout, container, false);
     unbinder = ButterKnife.bind(this, view);
+    presenter.updateView(this);
+    return view;
+  }
+
+  @Override
+  public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
     mLayoutManager = new LinearLayoutManager(getContext());
     feedRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -89,10 +95,7 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
     feedRecyclerView.setAdapter(mFeedAdapter);
 
     configureButtonSendNews();
-
-    presenter.onCreateView();
-
-    return view;
+    presenter.onActivityCreated();
   }
 
   @Override

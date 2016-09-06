@@ -36,7 +36,8 @@ import butterknife.Unbinder;
  * @version 1
  * @date 22.06.16
  */
-public class ArticleFragment extends BaseFragment implements ArticleView, Image.OnImageClickListener {
+public class ArticleFragment extends BaseFragment implements ArticleView,
+        Image.OnImageClickListener {
   private static final int LAYOUT = R.layout.article_layout;
   private String mRubric;
   private String mUrl;
@@ -86,6 +87,7 @@ public class ArticleFragment extends BaseFragment implements ArticleView, Image.
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(LAYOUT, container, false);
     unbinder = ButterKnife.bind(this, view);
+    presenter.updateView(this);
     mLayoutInflater = inflater;
     presenter.onCreateView(savedInstanceState);
     return view;

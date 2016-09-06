@@ -70,6 +70,13 @@ public class CommentsFragment extends BaseFragment implements CommentsView{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         unbinder = ButterKnife.bind(this, view);
+        presenter.updateView(this);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         mLayoutManager = new LinearLayoutManager(getContext());
         commentRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new CommentsAdapter(getContext());
@@ -83,8 +90,7 @@ public class CommentsFragment extends BaseFragment implements CommentsView{
             }
         });
 
-        presenter.onCreateView(savedInstanceState);
-        return view;
+        presenter.onActivityCreated(savedInstanceState);
     }
 
     @Override

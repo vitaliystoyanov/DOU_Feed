@@ -10,6 +10,7 @@ import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.DouModel;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.article.Article;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.common.BasePresenter;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.article.view.ArticleView;
+import com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.common.View;
 
 import javax.inject.Inject;
 
@@ -87,5 +88,11 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
     for (int i = 0; i < articleEntity.size(); i++) {
       mView.showPageElement(articleEntity.getPageElement(i));
     }
+  }
+
+  @Override
+  public void updateView(ArticleView view) {
+    mView = null;
+    mView = view;
   }
 }

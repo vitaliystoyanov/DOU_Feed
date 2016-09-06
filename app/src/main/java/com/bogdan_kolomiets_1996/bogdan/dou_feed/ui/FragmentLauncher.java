@@ -19,28 +19,14 @@ public class FragmentLauncher implements FragmentManager.OnBackStackChangedListe
   private static final String ACTION_MAIN = "android.intent.action.MAIN";
   private static final String FEED_PATH = "/lenta/";
 
-  private static FragmentLauncher mInstance = null;
   private AppCompatActivity mActivity;
   private int mContainer;
   private Intent mIntent;
 
-  private FragmentLauncher(AppCompatActivity activity) {
+  public FragmentLauncher(AppCompatActivity activity, int container) {
     mActivity = activity;
     mIntent = activity.getIntent();
-  }
-
-  public static FragmentLauncher with(AppCompatActivity activity) {
-    if (mInstance == null) {
-      mInstance = new FragmentLauncher(activity);
-    }
-
-    return mInstance;
-  }
-
-  public FragmentLauncher into(int container) {
     mContainer = container;
-
-    return mInstance;
   }
 
   public void open() {
@@ -111,5 +97,10 @@ public class FragmentLauncher implements FragmentManager.OnBackStackChangedListe
   private void displayHomeBtn(boolean display) {
     mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(display);
     mActivity.getSupportActionBar().setDisplayShowHomeEnabled(display);
+  }
+
+  public void release() {
+    mActivity = null;
+    mIntent = null;
   }
 }

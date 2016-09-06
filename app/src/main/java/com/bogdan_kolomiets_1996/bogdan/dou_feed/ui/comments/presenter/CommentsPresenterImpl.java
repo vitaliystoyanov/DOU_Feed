@@ -9,6 +9,7 @@ import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.DouModel;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.CommentItem;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.common.BasePresenter;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.comments.view.CommentsView;
+import com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.common.View;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
     }
 
     @Override
-    public void onCreateView(Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         loadComments(mCategory, mUrl, true);
     }
 
@@ -88,5 +89,11 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
 
     private boolean isNotEmpty(List<CommentItem> comments) {
         return (comments != null && !comments.isEmpty());
+    }
+
+    @Override
+    public void updateView(CommentsView view) {
+        mView = null;
+        mView = view;
     }
 }

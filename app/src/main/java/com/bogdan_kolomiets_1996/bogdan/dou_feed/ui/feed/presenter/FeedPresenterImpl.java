@@ -6,6 +6,7 @@ import com.bogdan_kolomiets_1996.bogdan.dou_feed.HTTPUtils;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.DouModel;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.common.BasePresenter;
+import com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.common.View;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.feed.view.FeedView;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
   }
 
   @Override
-  public void onCreateView() {
+  public void onActivityCreated() {
     if (mFeed.isEmpty()) {
       loadFeed(false);
     } else {
@@ -88,5 +89,11 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
   @Override
   public void onAddArticleClick() {
     mView.addNewArticle();
+  }
+
+  @Override
+  public void updateView(FeedView view) {
+    mView = null;
+    mView = view;
   }
 }
