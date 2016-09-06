@@ -31,6 +31,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * @author Bogdan Kolomiets
@@ -53,6 +54,7 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
   private Button btnUp;
   private LinearLayoutManager mLayoutManager;
   private FeedAdapter mFeedAdapter;
+  private Unbinder unbinder;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +66,7 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.feed_layout, container, false);
-    ButterKnife.bind(this, view);
+    unbinder = ButterKnife.bind(this, view);
     mLayoutManager = new LinearLayoutManager(getContext());
     feedRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -194,5 +196,11 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
         presenter.onAddArticleClick();
       }
     });
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    unbinder.unbind();
   }
 }

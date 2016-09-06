@@ -29,6 +29,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * @author Bogdan Kolomiets
@@ -39,6 +40,7 @@ public class ArticleFragment extends BaseFragment implements ArticleView, Image.
   private static final int LAYOUT = R.layout.article_layout;
   private String mRubric;
   private String mUrl;
+
 
   @BindView(R.id.articleContainer)
   LinearLayout container;
@@ -56,6 +58,7 @@ public class ArticleFragment extends BaseFragment implements ArticleView, Image.
   ArticlePresenter presenter;
 
   private LayoutInflater mLayoutInflater;
+  private Unbinder unbinder;
 
   public static ArticleFragment newInstance(String rubric, String url) {
     ArticleFragment fragment = new ArticleFragment();
@@ -82,7 +85,7 @@ public class ArticleFragment extends BaseFragment implements ArticleView, Image.
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(LAYOUT, container, false);
-    ButterKnife.bind(this, view);
+    unbinder = ButterKnife.bind(this, view);
     mLayoutInflater = inflater;
     presenter.onCreateView(savedInstanceState);
     return view;
@@ -155,5 +158,11 @@ public class ArticleFragment extends BaseFragment implements ArticleView, Image.
     ImageDialog imageDialog = new ImageDialog(getActivity());
     imageDialog.show();
     imageDialog.setImage(image);
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    unbinder.unbind();
   }
 }

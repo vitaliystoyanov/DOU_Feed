@@ -22,6 +22,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * @author Bogdan Kolomiets
@@ -42,6 +43,7 @@ public class CommentsFragment extends BaseFragment implements CommentsView{
 
     private LinearLayoutManager mLayoutManager;
     private CommentsAdapter mAdapter;
+    private Unbinder unbinder;
 
     public static CommentsFragment newInstance(String rubric, String pageUrl) {
         CommentsFragment fragment = new CommentsFragment();
@@ -67,7 +69,7 @@ public class CommentsFragment extends BaseFragment implements CommentsView{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         mLayoutManager = new LinearLayoutManager(getContext());
         commentRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new CommentsAdapter(getContext());
@@ -118,5 +120,11 @@ public class CommentsFragment extends BaseFragment implements CommentsView{
     @Override
     public Context getDouContext() {
         return getContext();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }
